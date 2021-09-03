@@ -1,29 +1,22 @@
-import ctypes
+from utils.cursor import Cursor
+from utils.point import Point
+from utils.screen import Screen
 
-MOUSEEVENTF_RIGHTDOWN = 1
-MOUSEEVENTF_LEFTDOWN = 2
-MOUSEEVENTF_RIGHTUP = 3
-MOUSEEVENTF_LEFTUP = 4
-
-class cursor:
-    
+class CursorHandler:
     def __init__(self):
-        # TODO: Have the viewport measurments be taken from the widget
-        self.viewport_screen_x = 600
-        self.viewport_screen_y = 300
-        # TODO: Have the observed measurments be taken from the actual screen size
-        self.observed_screen_x = 1920
-        self.observed_screen_y = 1080
-        
-        self.user32 = ctypes.windll.user32
+        self.cursor = Cursor()
     
     def right_click(self):
-        self.user32.mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0)
-        self.user32.mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0)
+        self.cursor.right_click()
+    
+    def left_click(self):
+        self.cursor.left_click()
+
+    def get_pos(self, x, y):
+        self.cursor.set_pos()
 
     def set_pos(self, x, y):
-        # TODO: im hereeeee
-        pass
+        self.cursor.set_pos(x,y)
 
     def motion(self, event):
         x, y = event.x, event.y
@@ -31,10 +24,7 @@ class cursor:
         # print('{}, {}'.format(x, y))
         # TODO: have this trigger a func to send cordinate pos
     
-    def _relative_pos(self, x: int, y: int):
-        x = x * (self.observed_screen_x/self.viewport_screen_x)
-        y = y * (self.observed_screen_y/self.viewport_screen_y)
-        print(f'relative x:{x} relative y:{y}')
-
-# This sets currsos position to top right
-# rundll32 user32.dll,SetCursorPos
+    def _relative_pos(self, p: Point, viewport: Screen, remote: Screen):
+        x = p.getX * (remote.getX/viewport.getX)
+        y = p.getY * (remote.getY/viewport.getY)
+        return Point(x, y)

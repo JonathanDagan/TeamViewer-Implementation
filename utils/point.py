@@ -1,0 +1,15 @@
+
+
+class Point(object):
+    '''Creates a point on a coordinate plane with values x and y.'''
+
+    def __init__(self, x, y):
+        '''Defines x and y variables'''
+        self.X = x
+        self.Y = y
+        
+    def getX(self):
+        return self.X
+
+    def getY(self):
+        return self.Y
