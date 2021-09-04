@@ -1,7 +1,7 @@
 import tkinter as tk
-from tkinter.constants import BOTTOM
 
-from widgets.screen_viewer.widget import Screen_Viewer_Widget
+from utils.commands import Commands
+from widgets.auth.widget import Auth_Widget
 
 class Application(tk.Frame):
     def __init__(self, master=None):
@@ -16,8 +16,14 @@ class Application(tk.Frame):
         self.hi_there["command"] = self.say_hi
         self.hi_there.pack(side="top")
 
-        self.e1 = Screen_Viewer_Widget(parent=self)
-        self.e1.pack()
+        self.lock = tk.Button(self)
+        self.lock["text"] = "Press to lock"
+        commands = Commands()
+        self.lock["command"] = commands.lock_pc
+        self.lock.pack()
+
+        self.auth = Auth_Widget(self.master)
+
 
         self.quit = tk.Button(self, text="QUIT", fg="red",
                               command=self.master.destroy)
