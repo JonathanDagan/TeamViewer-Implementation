@@ -1,3 +1,9 @@
 # python stuff
 venv
 **/__pycache__
+
+# sonarqube
+.scannerwork
+
+# misc
+temp
