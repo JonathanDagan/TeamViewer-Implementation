@@ -17,7 +17,7 @@ class Commands:
 
     def alert(self, message: str, title: str = "alert") -> None:
         if isWindows:
-            self.__windows_alert(message)
+            self.__windows_alert(message, title)
         else:
             raise NotImplementedError()
 
